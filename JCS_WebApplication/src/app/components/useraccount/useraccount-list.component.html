@@ -1,0 +1,159 @@
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="input-group">
+      <div class="row" *ngIf="(errMessage != '')">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+          {{ errMessage }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 pull-right">
+    <div class="input-group">
+      <input type="text" class="form-control" [(ngModel)]="searchkey" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-primary" onclick="$('#userAccountModal').modal('show');" (click)="newSelect()">+</button>
+
+        <button class="btn btn-default" type="button" (click)="search()">Search!</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+ 
+</div>
+<div class="row" style="padding: 12px;">
+    <div class="col-sm-6 col-md-4"  *ngFor="let useraccount of apiValues">
+      <div class="card" style="box-shadow: 5px 5px 10px;">
+        <div class="caption" style="background-color: white;height:140px; padding: 12px; border: 1px solid #808080;">
+          <p style="font-size: 16px; text-decoration: underline;"><label class="label label-default">{{ useraccount._lastname }}, {{ useraccount._firstname }}</label></p>
+          <p style="font-size: 14px;">Phone: {{ useraccount._phoneNumber}}</p>
+          <p style="font-size: 14px;">Address: {{ useraccount._address}}</p>
+          <div class="btn-group pull-right" role="group">
+            <button type="button" class="btn btn-primary" onclick="$('#userAccountModal').modal('show');" (click)="viewThis(useraccount)">Edit</button>
+            <button type="button" class="btn btn-warning" (click)="resetPassword(useraccount)">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="modal fade" id="userAccountModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+     <div class="modal-body">
+       <div class="well">
+         <div class="ui grid">
+           <div>
+             <div class="row">
+               <h3><span class="label label-default">User Account</span></h3>
+             </div>
+             <hr />
+             <div class="row">
+               <h4><span class="label label-default">User Details</span></h4>
+             </div>
+             <div class="row">
+               <div class="col-md-4">
+                 <label>First Name</label>
+                 <input type="text" class="form-control" [(ngModel)]="selectedModel._firstname">
+               </div>
+               <div class="col-md-4">
+                 <label>Middle Name</label>
+                 <input type="text" class="form-control" [(ngModel)]="selectedModel._middlename">
+               </div>
+               <div class="col-md-4">
+                 <label>Last Name</label>
+                 <input type="text" class="form-control" [(ngModel)]="selectedModel._lastname">
+               </div>
+             </div>
+             <div class="row">
+               <div class="col-md-8">
+                 <label>Address</label>
+                 <input type="text" class="form-control"  [(ngModel)]="selectedModel._address">
+               </div>
+               <div class="col-md-4">
+                 <label>Phone No.:</label>
+                 <input type="text" class="form-control"  [(ngModel)]="selectedModel._phoneNumber">
+               </div>
+
+             </div>
+           </div>
+           <hr />
+           <div class="row"><h4><span class="label label-default">Access Control</span></h4></div>
+           <div class="row">
+             <div class="col-md-4">
+               <label>User Name</label>
+               <input type="text" class="form-control" [(ngModel)]="selectedModel._userLogin" *ngIf="(selectedModel._userAccountID == 'New')">
+               <input type="text" class="form-control"  [(ngModel)]="selectedModel._userLogin" *ngIf="(selectedModel._userAccountID != 'New')" readonly>
+             </div>
+             <div class="col-md-4">
+               <label>User Level</label>
+               <select class="form-control" [(ngModel)]="selectedModel._userLevel">
+                 <option *ngFor="let ul of userLevelValues" [ngValue]="ul._userLevelCode">{{ul._ulDisplayName}}</option>
+               </select>
+             </div>
+             <div class="col-md-4">
+               <label>User Status</label>
+               <select class="form-control" [(ngModel)]="selectedModel._userStatus">
+                 <option *ngFor="let ustat of userStatusValues" [ngValue]="ustat._userStatusCode">{{ustat._usDisplay}}</option>
+               </select>
+             </div>
+           </div>
+           
+           <div class="row">
+             <div class="col-md-4">
+               <label>Branch</label>
+               <select class="form-control" [(ngModel)]="selectedModel._userBranch">
+                 <option *ngFor="let branch of branchValues" [ngValue]="branch._branchID">{{branch._branchName}}</option>
+               </select>
+
+             </div>
+             <div class="col-md-8" style="font-size: 10px; padding-top: 10px;">
+               <div class="well">
+                 <div class="row">
+                   <label>Transaction Access:</label>
+                 </div>
+                 <div class="row" style="margin-top: 5px;">
+                   <div class=" col-md-4"><label>Sea Transaction</label></div>
+                   <div class=" col-md-8">
+                     <select class="form-control" [(ngModel)]="selectedModel._isSea" >
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                     </select>
+                   </div>
+                 </div>
+                 <div class="row" style="margin-top: 5px;">
+                   <div class=" col-md-4"><label>Air Transaction</label></div>
+                   <div class="  col-md-8">
+                     <select class="form-control" [(ngModel)]="selectedModel.isAir">
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                     </select>
+                   </div>
+                 </div>
+                 <div class="row" style="margin-top: 5px;">
+                   <div class=" col-md-4"><label>Interbranch Transaction</label></div>
+                   <div class=" col-md-8">
+                     <select class="form-control" [(ngModel)]="selectedModel._isBranch">
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                     </select>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+
+         </div>
+       </div>
+     </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" (click)="updateUserAccount()" data-dismiss="modal" *ngIf="selectedModel._userAccountID != 'New'">
+            Save changes
+        </button>
+        <button type="button" class="btn btn-success" (click)="addUserAccount()" data-dismiss="modal" *ngIf="selectedModel._userAccountID === 'New'">
+            Create New User
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

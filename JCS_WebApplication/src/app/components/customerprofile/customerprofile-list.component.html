@@ -1,0 +1,136 @@
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="input-group">
+      <div class="row" *ngIf="(errMessage != '')">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+          {{ errMessage }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 pull-right">
+    <div class="input-group">
+      <input type="text" class="form-control" [(ngModel)]="searchkey" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-primary" onclick="$('#customerAccountModal').modal('show');" (click)="newSelect()">+</button>
+
+        <button class="btn btn-default" type="button" (click)="search()">Search!</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+ 
+</div>
+<div class="row" style="padding: 12px;">
+    <div class="col-sm-6 col-md-4"  *ngFor="let customeraccount of apiValues" style="padding: 20px;">
+      <div class="card" style="box-shadow: 5px 5px 10px;">
+        <div class="caption" style="background-color: white;height:140px; padding: 12px; border: 1px solid #808080;">
+          <p style="font-size: 16px; text-decoration: underline;"><label class="label label-default" style="font-size:larger;">{{ customeraccount._lastname }}, {{ customeraccount._firstname }} </label> <span *ngIf="(customeraccount._company != '' && customeraccount._company!=  null)"> ( {{ customeraccount._company }} )</span></p>
+          <p style="font-size: 14px;">Phone: {{ customeraccount._businessPhone}}</p>
+          <p style="font-size: 14px;">Address: {{ customeraccount._address}}</p>
+          <div class="btn-group pull-right" role="group">
+            <button type="button" class="btn btn-primary" onclick="$('#customerAccountModal').modal('show');" (click)="viewThis(customeraccount)">Edit</button>
+         
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="modal fade" id="customerAccountModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+     <div class="modal-body">
+       <div class="well">
+         <div class="ui grid">
+           <div>
+             <div class="row">
+               <h3><span class="label label-default">Customer Account</span></h3>
+             </div>
+             <hr />
+             <div class="row">
+               <h4><span class="label label-default">Customer Details</span></h4>
+             </div>
+             <div class="row">
+               <div class="col-md-4">
+                 <label>First Name</label>
+                 <input type="text" class="form-control" [(ngModel)]="selectedModel._firstname">
+               </div>
+               <div class="col-md-4">
+                 <label>Middle Name</label>
+                 <input type="text" class="form-control" [(ngModel)]="selectedModel._middlename">
+               </div>
+               <div class="col-md-4">
+                 <label>Last Name</label>
+                 <input type="text" class="form-control" [(ngModel)]="selectedModel._lastname">
+               </div>
+             </div>
+             <div class="row">
+               <div class="col-md-4">
+                 <label>Email:</label>
+                 <input type="text" class="form-control" [(ngModel)]="selectedModel._email">
+               </div>
+               <div class="col-md-8">
+                 <label>Address</label>
+                 <input type="text" class="form-control" [(ngModel)]="selectedModel._address">
+               </div>
+
+
+             </div>
+             <div class="row">
+               <div class="col-md-8">
+                 <label>Company </label>
+                 <input type="text" class="form-control" [(ngModel)]="selectedModel._company">
+               </div>
+               <div class="col-md-4">
+                 <label>Business Phone No.:</label>
+                 <input type="text" class="form-control" [(ngModel)]="selectedModel._businessPhone">
+               </div>
+
+             </div>
+           </div>
+           <hr/>
+           <div class="row">
+             <h4><span class="label label-default">Account Details</span></h4>
+           </div>
+           <div class="row">
+             <div class="col-md-8">
+               <label>Account Number</label>
+               <input type="text" class="form-control" [(ngModel)]="selectedModel._accountNumber">
+             </div>
+             
+
+           </div>
+           <div class="row">
+             <div class="col-md-4">
+               <label>Closest Branch</label>
+               <select class="form-control" [(ngModel)]="selectedModel._closestBranch">
+                 <option *ngFor="let branch of branchValues" [ngValue]="branch._branchID">{{branch._branchName}}</option>
+               </select>
+
+             </div>
+             <div class="col-md-4">
+               <label>Priority Client</label>
+               <select class="form-control" [(ngModel)]="selectedModel._isVIP">
+                 <option value="1">Yes</option>
+                 <option value="0">No</option>
+               </select>
+
+             </div>
+             
+           </div>
+
+         </div>
+       </div>
+     </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" (click)="updateCustomerAccount()" data-dismiss="modal" *ngIf="selectedModel._customerID != 'New'">
+            Save changes
+        </button>
+        <button type="button" class="btn btn-success" (click)="addCustomerAccount()" data-dismiss="modal" *ngIf="selectedModel._customerID === 'New'">
+            Create New User
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

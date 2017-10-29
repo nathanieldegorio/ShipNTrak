@@ -1,0 +1,88 @@
+
+
+<div class="nav-side-menu" *ngIf="isLoggedIn">
+  <menu-section></menu-section>
+</div>
+<div class="container" id="main" *ngIf="isLoggedIn" style="padding: 12px; font-size: 15px !important;">
+
+  <div class="row" style="margin-bottom: 12px; padding-right: 12px !important;">
+    <div class="dropdown pull-right">
+      <button class="btn btn-lg btn-info btn-outline dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="font-size: 10px;">
+        {{ account._lastname +' , '+account._firstname }}
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><a >View Messages</a></li>
+        <li><a >Edit Profile</a></li>
+        <li><a >Change Password</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a (click)="logout()" >Sign Out</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="panel panel-blue">
+    <div class="panel-heading">
+     
+    </div>
+    <div class="panel-body">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  
+</div>
+
+  <div style="width: 100%; height: 100vh; background-color:rgba(0,0,0,0.4);">
+    <div class="container" *ngIf="!isLoggedIn">
+      <div class="row">
+        <div class="centered" style="width: 350px; height: 500px; padding: 20px; background-image:url('/assets/bg.jpg'); color: white;">
+          <div class="panel panel-default"  style="text-align: center; background: none;">
+            <div style="text-align: center">
+              <img src="/assets/logo.png" />
+            </div>
+            <h1 class="changefont" style="font-size: 50px;">JCS</h1>
+            Shipments &amp; Billing  Management Sytem
+            <br/>
+            <br/>
+            <div class="form" style="padding: 10%; padding-top:0; text-align:left;font-size: smaller; background-color:rgba(255,255,255,0.4); color: black;">
+              <br/>
+              <div class="row" *ngIf="(errorMsg != '')">
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                  {{ errorMsg }}
+                </div>
+              </div>
+              <div class="row" *ngIf="(account._passwordReset != 'True')">
+                <label>
+                  Username
+                </label>
+                <input type="text" class="form-control" [(ngModel)]="account._userLogin">
+              </div>
+              <div class="row" *ngIf="(account._passwordReset != 'True')">
+                <label>
+                  Password
+                </label>
+                <input type="password" [(ngModel)]="account._userAccessKey" class="form-control">
+              </div>
+               <div class="row" *ngIf="(account._passwordReset == 'True')">
+                <label>
+                  New Password
+                </label>
+                <input type="password" [(ngModel)]="account._userAccessKey" class="form-control">
+              </div>
+              <div class="row" *ngIf="(account._passwordReset == 'True')">
+                <label>
+                  COnfirm Password
+                </label>
+                <input type="password" [(ngModel)]="confirmPassword" (change)="confirmPass()" class="form-control">
+              </div>
+              <div class="row">
+                <br />
+                <button type="button" class="btn btn-success btn-circle" style="width: 100%; border-radius: 300px;" (click)="login()" *ngIf="(account._passwordReset != 'True')">Login</button>
+                <button type="button" class="btn btn-success btn-circle" style="width: 100%; border-radius: 300px;" (click)="updatePass()" *ngIf="(account._passwordReset == 'True')">Update Password</button>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

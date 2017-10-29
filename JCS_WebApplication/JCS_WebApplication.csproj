@@ -1,0 +1,76 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\semantic\**" />
+    <Content Remove="wwwroot\semantic\**" />
+    <EmbeddedResource Remove="wwwroot\semantic\**" />
+    <None Remove="wwwroot\semantic\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="src\app\components\home\home.component.ts" />
+    <None Remove="src\app\components\shipmenttype\shipmenttype.component.ts" />
+    <None Remove="src\app\components\shipmenttype\shipmenttype.model.ts" />
+    <None Remove="src\app\components\useraccount\useraccess.model.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="jcs-ux\" />
+    <Folder Include="src\app\configs\" />
+    <Folder Include="src\app\components\userstatus\" />
+    <Folder Include="src\app\components\userlevel\" />
+    <Folder Include="src\app\components\systembranch\" />
+    <Folder Include="src\app\models\" />
+    <Folder Include="src\images\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JCS_DataInterface\JCS_DataInterface.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="src\app\components\collectiontype\collectiontype-list.component.ts" />
+    <TypeScriptCompile Include="src\app\components\collectiontype\collectiontype.model.ts" />
+    <TypeScriptCompile Include="src\app\components\home\home.component.ts" />
+    <TypeScriptCompile Include="src\app\components\cargotypes\cargotype-list.component.ts" />
+    <TypeScriptCompile Include="src\app\components\cargotypes\cargotype.model.ts" />
+    <TypeScriptCompile Include="src\app\components\units\units-list.component.ts" />
+    <TypeScriptCompile Include="src\app\components\units\unit.model.ts" />
+    <TypeScriptCompile Include="src\app\components\paymenttype\paymenttype-list.component.ts" />
+    <TypeScriptCompile Include="src\app\components\paymenttype\paymenttype.model.ts" />
+    <TypeScriptCompile Include="src\app\components\shipmenttype\shipmenttype.component.ts" />
+    <TypeScriptCompile Include="src\app\components\shipmenttype\shipmenttype.model.ts" />
+    <TypeScriptCompile Include="src\app\components\useraccount\useraccess.model.ts" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="ng build" />
+  </Target>
+
+</Project>

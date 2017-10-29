@@ -1,0 +1,16 @@
+
+
+  <div class="row" style="padding: 12px;">
+    <div>
+      <div class="segment">
+        <useraccount-type-main *ngIf="(menu=='users')"></useraccount-type-main>
+        <userlevel-type-main *ngIf="(menu=='userlevels')"></userlevel-type-main>
+        <userstatus-type-main *ngIf="(menu=='userstatus')"></userstatus-type-main>
+        <systembranch-type-main *ngIf="(menu=='branches')"></systembranch-type-main>
+        <collection-type-main *ngIf="(menu=='collectiontype')"></collection-type-main>
+        <payment-type-main *ngIf="(menu=='paymenttype')"></payment-type-main>
+        <cargo-type *ngIf="(menu=='cargotypes')"></cargo-type>
+        <units-list *ngIf="(menu=='units')"></units-list>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,90 @@
+<div class="ui segment">
+  <div class="ui form">
+    <h4 class="ui dividing header">User Accounts</h4>
+    <div class="ui message" *ngIf="(errMessage != '' && errMessage != null)">
+      <i class="close icon" (click)="errMessage = '';"></i>
+      <div class="header">
+        {{ errMessage }}
+      </div>
+      <p>&nbsp;</p>
+    </div>
+    <div class="field">
+      <div class="two fields">
+        <div class="field">
+          <div class="ui action input">
+            <input type="text" placeholder="Enter search terms here.." [(ngModel)]="searchkey">
+            <button class="ui button" (click)="search()">Search</button>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui teal button" onclick="$('#paymenttypeModal').modal('show');" (click)="newSelect()">New</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="ui segment">
+    <div class="ui divided items">
+      <div class="small item" *ngFor="let shipmenttype of apiValues">
+        <div class="content">
+          <a class="header">
+            
+            <span class="ui button" onclick="$('#shipmentTypeModal').modal('show');" (click)="viewThis(shipmenttype)">
+              <i class="edit icon"></i>
+            </span>
+            <span style="width: 100px;">
+              <span class="ui label" *ngIf="(shipmenttype._isTransaction == 'True')">Transaction</span>
+              <span class="ui label" *ngIf="(shipmenttype._isTransaction != 'True')">Internal&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </span>
+            &nbsp;&nbsp;&nbsp;
+            {{ shipmenttype._description }}   
+            
+          </a>
+         </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ui modal" id="shipmentTypeModal">
+  <i class="close icon"></i>
+  <div class="content">
+    <div class="ui form">
+      <h4 class="ui dividing header">Shipment Type Information</h4>
+      <div class="field">
+        <div class="two fields">
+          <div class="field">
+            <label>Description</label>
+            <input [(ngModel)]="selectedModel._description" placeholder="" />
+          </div>
+          <div class="field" style="margin: auto;">
+            <label>is Transaction</label>
+            <input type="checkbox" (checked)="isTransactionFlag" [(ngModel)]="isTransactionFlag" (click)="changeTransactionFlag()" />
+          </div>
+         
+        </div>
+      </div>
+     
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button" (click)="addUserAccount()" *ngIf="(this.selectedModel._shipmentType == '0')">
+      Add
+      <i class="checkmark icon"></i>
+    </div>
+    <div class="ui positive right labeled icon button" (click)="updateUserAccount()" *ngIf="(this.selectedModel._shipmentType != '0')">
+      Save
+      <i class="checkmark icon"></i>
+    </div>
+    <div class="ui red deny button">
+      Remove
+    </div>
+    <div class="ui black deny button">
+      Cancel
+    </div>
+
+  </div>
+</div>
+

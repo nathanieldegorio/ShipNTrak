@@ -1,0 +1,73 @@
+
+  <div class="brand">Jades Cargo Services</div>
+  <i class="glyphicon glyphicon-align-justify toggle-btn" style="font-size: 25px;" data-toggle="collapse" data-target="#menu-content"></i>
+  <div class="menu-list">
+    <ul id="menu-content" class="menu-content collapse out">
+      <li  class=" item" [routerLink]="['/home']" routerLinkActive="active">
+          Dashboard
+      </li>
+      <li data-toggle="collapse" data-target="#administration" class="collapsed">
+        <a >Administration</a>
+      </li>
+      <ul class="sub-menu collapse" id="administration">
+        <li  class=" item" [routerLink]="['/administration','users']" routerLinkActive="active">
+            Users
+       
+        </li>
+        <li  class=" item" [routerLink]="['/administration','userlevels']" routerLinkActive="active">
+            User Level
+       
+        </li>
+        <li  class=" item" [routerLink]="['/administration','userstatus']" routerLinkActive="active">
+            User Status
+         
+        </li>
+        <li  [routerLink]="['/administration','branches']" routerLinkActive="active">
+            Branches
+        
+        </li>
+        <li  [routerLink]="['/administration','collectiontype']" routerLinkActive="active">
+            Collection Type
+      
+        </li>
+        <li [routerLink]="['/administration','paymenttype']" routerLinkActive="active">
+            Payment Type
+         
+        </li>
+        <li [routerLink]="['/administration','units']" routerLinkActive="active">
+            Item Units
+        </li>
+        <li [routerLink]="['/administration','cargotypes']" routerLinkActive="active">
+            Cargo Types
+        </li>
+      
+      </ul>
+      <li data-toggle="collapse" data-target="#new" class="collapsed">
+        <a> Customer Accounts</a>
+      </li>
+      <ul class="sub-menu collapse" id="new">
+        <li [routerLink]="['/customeraccounts','profiles']" routerLinkActive="active">
+            Manage Accounts
+        </li>
+        <li>Statement of Accounts</li>
+        <li>Payments</li>
+      </ul>
+      <li data-toggle="collapse" data-target="#airService" class="collapsed">
+        <a>Air Services</a>
+      </li>
+      <ul class="sub-menu collapse" id="airService">
+        <li>Air Shipments</li>
+        <li>Air Collectibles</li>
+        <li>Adjust Rates</li>
+      </ul>
+      <li data-toggle="collapse" data-target="#seaLandService" class="collapsed">
+        <a>Sea/Land Services</a>
+      </li>
+      <ul class="sub-menu collapse" id="seaLandService">
+        <li>Sea/Land Shipments</li>
+        <li>Shipment Collectibles</li>
+        <li>Sea/Land Rates(per Route)</li>
+      </ul>
+      
+    </ul>
+  </div>

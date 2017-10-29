@@ -1,0 +1,101 @@
+<div class="ui segment">
+  <div class="button" onclick="$('.ui.modal').modal('show');" (click)="newSelect()">New</div>
+
+  <table class="ui table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Descrption</th>
+        <th>Billed To</th>
+        <th style="text-align:center">Collectable Account</th>
+        <th style="text-align:center">Collect On Delivery</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let collectionType of apiValues">
+        <td><div onclick="$('.ui.modal').modal('show');" (click)="viewThis(collectionType)" class="ui button"><i class="list layout icon"></i></div></td>
+       <td>{{ collectionType._ctDisplayName }}</td>
+       <td>{{ collectionType._ctDescription }}</td>
+       <td>
+         <i *ngIf="(collectionType._ctBilledTo.indexOf('0') > -1);then content_true_else else content_false_else">
+         </i>
+         <ng-template #content_true_else>Shipper</ng-template>
+         <ng-template #content_false_else>Consignee</ng-template>
+       </td>
+       <td style="text-align:center">
+         <i *ngIf="(collectionType._collectableFlag.indexOf('0') > -1);then content_true else content_false">
+         </i>
+         <ng-template #content_true></ng-template>
+         <ng-template #content_false><i class="checkmark icon"></i></ng-template>
+       </td>
+        <td style="text-align:center">
+          <i *ngIf="(collectionType._collectOnDeliveryFlag.indexOf('0') > -1);then content_true else content_false">
+          </i>
+          <ng-template #content_true></ng-template>
+          <ng-template #content_false><i class="checkmark icon"></i></ng-template>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+ 
+</div>
+
+<div class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Collection Type Details
+  </div>
+  <div class="content">
+    <div class="ui form">
+      <div class="field">
+        <label>Name</label>
+        <input [(ngModel)]="selectedModel._ctDisplayName" />
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <input [(ngModel)]="selectedModel._ctDescription" />
+      </div>
+      <div class="field">
+        <label>Bill to: </label>
+        <select class="ui dropdown"  [(ngModel)]="selectedModel._ctBilledTo">
+          <option value="0">Shipper</option>
+          <option value="1">Consignee</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Collectable Account: </label>
+        <select class="ui dropdown" [(ngModel)]="selectedModel._collectableFlag">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Collect on Delivery: </label>
+        <select class="ui dropdown" [(ngModel)]="selectedModel._collectOnDeliveryFlag">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button" (click)="addCollectionType()" *ngIf="selectedModel._collectionTypeCode === 'New'">
+      Add
+      <i class="checkmark icon"></i>
+    </div>
+    <div class="ui positive right labeled icon button" (click)="updateCollectionType()" *ngIf="selectedModel._collectionTypeCode != 'New'">
+      Save
+      <i class="checkmark icon"></i>
+    </div>
+    <div class="ui red deny button">
+      Remove
+    </div>
+    <div class="ui black deny button">
+      Cancel
+    </div>
+    
+  </div>
+</div>
